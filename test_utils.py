@@ -1,22 +1,34 @@
-#1. Engadir ao exemplo anterior as probas que verifiquen que os outros dous métodos
-#de utils.py funcionan correctamente.
-
-# importar o módulo unittest
 import unittest
-import utils
-# Crear unha clase TestUtils que estenda de unittest.TestCase.
-# Recoméndase usar nomes significativos para o nome da clase
-class TestUtils(unittest.TestCase):
-    def test_e_primo(self):
-        self.assertFalse(utils.is_prime(4))
-        self.assertTrue(utils.is_prime(2))
-        self.assertTrue(utils.is_prime(3))
-        self.assertFalse(utils.is_prime(8))
-        self.assertTrue(utils.is_prime(0))
-        self.assertTrue(utils.is_prime(7))
-        self.assertEqual(
-        utils.is_prime(-3), "Os números negativos non están permitidos"
-        )
+from utils import is_prime, multiplicar, dividir, cubic, say_hello
 
-if __name__ == "__main__":
+class TestUtils(unittest.TestCase):
+    def test_is_prime(self):
+        self.assertFalse(is_prime(0))  # Corrección aquí, debe ser False
+        self.assertFalse(is_prime(1))
+        self.assertTrue(is_prime(2))
+        self.assertTrue(is_prime(3))
+        self.assertFalse(is_prime(4))
+        self.assertEqual(is_prime(-5), "Os números negativos non están permitidos")
+
+    def test_multiplicar(self):
+        self.assertEqual(multiplicar(2, 3), 6)
+        self.assertEqual(multiplicar(-1, 5), -5)
+        self.assertEqual(multiplicar(0, 10), 0)
+
+    def test_dividir(self):
+        self.assertEqual(dividir(10, 2), 5)
+        self.assertEqual(dividir(9, 3), 3)
+        with self.assertRaises(ValueError):
+            dividir(5, 0)
+
+    def test_cubic(self):
+        self.assertEqual(cubic(3), 27)
+        self.assertEqual(cubic(0), 0)
+        self.assertEqual(cubic(-2), -8)
+
+    def test_say_hello(self):
+        self.assertEqual(say_hello("Carlos"), "Ola, Carlos")
+        self.assertEqual(say_hello("Ana"), "Ola, Ana")
+
+if __name__ == '__main__':
     unittest.main()
